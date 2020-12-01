@@ -15,7 +15,7 @@
                         </a>
                     </div>
                     <div class="mb-auto p-2">
-                        <a href="{{ route('register') }}" role="button" class="btn btn-success btn-lg btn-block">
+                        <a href="{{ route('evento.index') }}" role="button" class="btn btn-success btn-lg btn-block">
                             Calendario
                         </a>
                     </div>
