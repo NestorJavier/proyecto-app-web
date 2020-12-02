@@ -18,8 +18,7 @@ class CreateEventos extends Migration
             $table->bigInteger('id_usuario')->nullable();
             $table->string('titulo', 255);
             $table->text('descripcion');
-            $table->dateTime('start');
-            $table->dateTime('end');
+            $table->dateTime('fecha');
             $table->timestamps();
         });
     }

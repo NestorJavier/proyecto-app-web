@@ -2,6 +2,8 @@
 <html>
 <head>
 <meta charset='utf-8' />
+<!-- CSRF Token -->
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <link href="{{ asset('fullcalendar/lib/main.css') }}"z rel='stylesheet' />
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 <script src="{{ asset('fullcalendar/lib/main.js') }}"></script>
@@ -9,7 +11,7 @@
 
   document.addEventListener('DOMContentLoaded', function() {
     var calendarEl = document.getElementById('calendar');
-
+    
     var calendar = new FullCalendar.Calendar(calendarEl, {
       headerToolbar: {
         left: 'prev,next today myCustomButton',
@@ -21,7 +23,7 @@
       selectable: true,
       selectMirror: true,
       customButtons:{
-          myCustomButton: {
+        myCustomButton: {
           text: 'custom!',
           click: function() {
             $('#exampleModal').modal('toggle');
@@ -29,12 +31,8 @@
         },
       },
       dateClick: function(info) {
+        $('#fecha').val(info.dateStr);
         $('#exampleModal').modal('toggle');
-        console.log(info)
-        calendar.addEvent({
-            title: 'title',
-            start: info.dateStr,
-          })
       },
       eventClick: function(arg) {
         /*if (confirm('Are you sure you want to delete this event?')) {
@@ -47,7 +45,7 @@
         console.log(arg.event.backgroundColor);
         console.log(arg.event.extendedProps.descripcion);
       },
-
+      
 
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
@@ -95,10 +93,40 @@
     });
     calendar.setOption('locale', 'Es');
     calendar.render();
-  });
-
+    
+    $("#btnAgregar").click(function(){
+      var objEvento = recolectarDatosGUI('POST');
+      EnviarInformacion('', objEvento);
+    });
+    
+    function recolectarDatosGUI(method){
+      nuevoEvento = {
+        titulo: $('#titulo').val(),
+        descripcion: $('#txtDescripcion').val(),
+        fecha: $('#fecha').val() + " " + "01:00:00",
+        '_token': $("meta[name='csrf-token']").attr("content"),
+        '_method': method
+      }
+      $('#exampleModal').modal('toggle');
+      console.log(nuevoEvento)
+      return nuevoEvento;
+    }
+    
+    function EnviarInformacion(accion, objEvento){
+      $.ajax(
+        {
+          type: "POST",
+          url: "{{ url('evento') }}" + accion,
+          data: objEvento,
+          success: function (msg){console.log(msg);},
+          error: function () { alert("Hay un error") }
+        }
+        );
+      }
+    });
+    
 </script>
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
 
@@ -140,11 +168,7 @@
             <br>
             <br>
             <p>Inicio:</p> 
-            <input type="text" name="start" id="start">
-            <br>
-            <br>
-            <p>Final:</p>
-            <input type="text" name="end" id="end">
+            <input disabled type="text" name="fecha" id="fecha">
             <br>
             <br>
             <p>Descripción:</p> 
@@ -161,5 +185,26 @@
   </div>
 
   <div id='calendar'></div>
+
+  <form action="{{ url('evento') }}" method="POST" style="width:60vw; margin: 0 auto 0 auto;">
+        @csrf
+        <div class="form-group">
+            <label>Titulo</label>
+            <br>
+            <input type="text" name="titulo">
+        </div>
+        <div class="form-group">
+            <label>fecha</label>
+            <br>
+            <input type="text" name="fecha">
+        </div>
+        <div class="form-group">
+            <label>descripción</label>
+            <br>
+            <input type="text" name="descripcion">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </form>
 </body>
 </html>
