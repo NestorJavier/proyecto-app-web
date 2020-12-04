@@ -39,9 +39,9 @@ class EventoController extends Controller
         //Evento::insert($datosEvento);*/
         
         $evento = new Evento;
-        $evento->titulo = $request->titulo;
-        $evento->descripcion = $request->descripcion;
-        $evento->fecha = $request->fecha;
+        $evento->title = $request->titulo;
+        $evento->description = $request->descripcion;
+        $evento->start = $request->fecha;
 
         $evento->save();
         print_r($evento);
@@ -53,9 +53,10 @@ class EventoController extends Controller
      * @param  \App\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function show(Evento $evento)
+    public function show()
     {
-        //
+        $data = Evento::all();
+        return response()->json($data);
     }
 
     /**

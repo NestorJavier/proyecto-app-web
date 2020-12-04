@@ -26,7 +26,7 @@
         myCustomButton: {
           text: 'custom!',
           click: function() {
-            $('#exampleModal').modal('toggle');
+            console.log(calendar.events)
           }
         },
       },
@@ -35,66 +35,37 @@
         $('#exampleModal').modal('toggle');
       },
       eventClick: function(arg) {
+        console.log(arg.event.id)
+        dia = arg.event.start.getMonth()+1;
+        mes = arg.event.start.getDate();
+        mes = (mes < 10) ? '0' + mes : mes;
+        dia = (dia < 10) ? '0' + dia : dia;
+
+        anio = arg.event.start.getFullYear();
+        $('#fecha').val(anio+'-'+mes+'-'+dia);
+        
+        $('#titulo').val(arg.event.title);
+        $('#txtDescripcion').val(arg.event.extendedProps.description);
+        $('#exampleModal').modal('toggle');
         /*if (confirm('Are you sure you want to delete this event?')) {
           arg.event.remove()
         }*/
-        console.log(arg.event.title);
-        console.log(arg.event.start);
-        console.log(arg.event.end);
-        console.log(arg.event.textColor);
-        console.log(arg.event.backgroundColor);
-        console.log(arg.event.extendedProps.descripcion);
       },
       
 
       editable: true,
       dayMaxEvents: true, // allow "more" link when too many events
-      events: [
-        {
-          title: 'All Day Event',
-          start: '2020-09-01',
-          descripcion: 'description',
-        },
-        {
-          title: 'Long Event',
-          start: '2020-09-07',
-          end: '2020-09-10'
-        },
-        {
-          title: 'Repeating Event',
-          start: '2020-09-09 12:00:00',
-          end: '2020-09-12 12:00:00',
-          color: '#ffccaa',
-          textColor: '#000f00'
-        },
-        {
-          title: 'Conference',
-          start: '2020-09-11',
-          end: '2020-09-13'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-12T10:30:00',
-          end: '2020-09-12T12:30:00'
-        },
-        {
-          title: 'Lunch',
-          start: '2020-09-12T12:00:00'
-        },
-        {
-          title: 'Meeting',
-          start: '2020-09-12T14:30:00'
-        },
-        {
-          title: 'Happy Hour',
-          start: '2020-09-12T17:30:00'
-        },
-      ]
+      events: "{{ url('/evento/show') }}"
     });
     calendar.setOption('locale', 'Es');
     calendar.render();
     
     $("#btnAgregar").click(function(){
+      var objEvento = recolectarDatosGUI('POST');
+      EnviarInformacion('', objEvento);
+    });
+
+    $("#btnEliminar").click(function(){
       var objEvento = recolectarDatosGUI('POST');
       EnviarInformacion('', objEvento);
     });
@@ -107,8 +78,6 @@
         '_token': $("meta[name='csrf-token']").attr("content"),
         '_method': method
       }
-      $('#exampleModal').modal('toggle');
-      console.log(nuevoEvento)
       return nuevoEvento;
     }
     
@@ -118,7 +87,10 @@
           type: "POST",
           url: "{{ url('evento') }}" + accion,
           data: objEvento,
-          success: function (msg){console.log(msg);},
+          success: function (msg){
+            $('#exampleModal').modal('toggle');
+            calendar.refetchEvents();
+          },
           error: function () { alert("Hay un error") }
         }
         );
@@ -177,7 +149,7 @@
         <div class="modal-footer">
             <button class="btn btn-success" id="btnAgregar">Agregar</button>
             <button class="btn btn-warning" id="btnModificar">Modificar</button>
-            <button class="btn btn-danger" id="btnBorrar">Borrar</button>
+            <button class="btn btn-danger" id="btnEliminar">Borrar</button>
             <button class="btn btn-light" id="btnCancelar">Cancelar</button>
         </div>
       </div>
