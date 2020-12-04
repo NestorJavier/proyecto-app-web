@@ -35,14 +35,15 @@
         $('#exampleModal').modal('toggle');
       },
       eventClick: function(arg) {
-        console.log(arg.event.id)
-        dia = arg.event.start.getMonth()+1;
-        mes = arg.event.start.getDate();
+        console.log(arg.event)
+        mes = arg.event.start.getMonth()+1;
         mes = (mes < 10) ? '0' + mes : mes;
+        
+        dia = arg.event.start.getDate();
         dia = (dia < 10) ? '0' + dia : dia;
-
         anio = arg.event.start.getFullYear();
         $('#fecha').val(anio+'-'+mes+'-'+dia);
+        console.log(anio+'-'+mes+'-'+dia)
         
         $('#titulo').val(arg.event.title);
         $('#txtDescripcion').val(arg.event.extendedProps.description);
@@ -72,8 +73,15 @@
       EnviarInformacion('/'+$('#eventoId').val(), objEvento);
     });
     
+    $("#btnModificar").click(function(){
+      var objEvento = recolectarDatosGUI('PATCH');
+      console.log(objEvento);
+      EnviarInformacion('/'+$('#eventoId').val(), objEvento);
+    });
+    
     function recolectarDatosGUI(method){
       nuevoEvento = {
+        id: $('#eventoId').val(),
         titulo: $('#titulo').val(),
         descripcion: $('#txtDescripcion').val(),
         fecha: $('#fecha').val() + " " + "01:00:00",
@@ -93,7 +101,10 @@
             $('#exampleModal').modal('toggle');
             calendar.refetchEvents();
           },
-          error: function () { alert("Hay un error") }
+          error: function () { 
+            $('#exampleModal').modal('toggle');
+            alert("Hay un error")
+          }
         }
         );
       }
@@ -147,7 +158,7 @@
             <br>
             <p>Descripción:</p> 
             <textarea name="txtDescripcion" id="txtDescripcion" cols="30" rows="10"></textarea>
-            <input type="hidden" id="eventoId" name="eventoId">
+            <input type="hidden" id="eventoId" name="eventoId" value="0">
         </div>
         <div class="modal-footer">
             <button class="btn btn-success" id="btnAgregar">Agregar</button>
