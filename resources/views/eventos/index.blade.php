@@ -34,12 +34,18 @@
                 },
 
                 dateClick: function(info) {
+                    
+                    limpiaformulario();
                     $('#fecha').val(info.dateStr);
+
+                    $("#btnAgregar").prop("disabled",false);
+                    $("#btnModificar").prop("disabled",true);
+                    $("#btnEliminar").prop("disabled",true);
+
                     $('#exampleModal').modal('toggle');
                 },
 
                 eventClick: function(arg) {
-                    console.log(arg.event)
                     mes = arg.event.start.getMonth()+1;
                     mes = (mes < 10) ? '0' + mes : mes;
                 
@@ -47,11 +53,14 @@
                     dia = (dia < 10) ? '0' + dia : dia;
                     anio = arg.event.start.getFullYear();
                     $('#fecha').val(anio+'-'+mes+'-'+dia);
-                    console.log(anio+'-'+mes+'-'+dia)
                     
                     $('#titulo').val(arg.event.title);
                     $('#txtDescripcion').val(arg.event.extendedProps.description);
                     $('#eventoId').val(arg.event.id);
+
+                    $("#btnAgregar").prop("disabled",true);
+                    $("#btnModificar").prop("disabled",false);
+                    $("#btnEliminar").prop("disabled",false);
                 
                     $('#exampleModal').modal('toggle');
                     /*if (confirm('Are you sure you want to delete this event?')) {
@@ -79,7 +88,6 @@
             
             $("#btnModificar").click(function(){
                 var objEvento = recolectarDatosGUI('PATCH');
-                console.log(objEvento);
                 EnviarInformacion('/'+$('#eventoId').val(), objEvento);
             });
             
@@ -109,6 +117,13 @@
                         alert("Hay un error")
                     }
                 });
+            }
+
+            function limpiaformulario() {
+                $('#fecha').val("");
+                $('#titulo').val("");
+                $('#txtDescripcion').val("");
+                $('#eventoId').val("");
             }
         });
     </script>
@@ -168,7 +183,7 @@
                     <button class="btn btn-success" id="btnAgregar">Agregar</button>
                     <button class="btn btn-warning" id="btnModificar">Modificar</button>
                     <button class="btn btn-danger" id="btnEliminar">Borrar</button>
-                    <button class="btn btn-light" id="btnCancelar">Cancelar</button>
+                    <button data-dismiss="modal" class="btn btn-light" id="btnCancelar">Cancelar</button>
                 </div>
             </div>
         </div>
