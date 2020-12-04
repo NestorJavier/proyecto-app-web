@@ -88,8 +88,11 @@ class EventoController extends Controller
      * @param  \App\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Evento $evento)
+    public function destroy($eventoid)
     {
-        //
+        $ev = Evento::find($eventoid);
+        $ev->delete();
+        return response()->json($ev);
+
     }
 }

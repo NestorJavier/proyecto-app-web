@@ -46,6 +46,8 @@
         
         $('#titulo').val(arg.event.title);
         $('#txtDescripcion').val(arg.event.extendedProps.description);
+        $('#eventoId').val(arg.event.id);
+        
         $('#exampleModal').modal('toggle');
         /*if (confirm('Are you sure you want to delete this event?')) {
           arg.event.remove()
@@ -66,8 +68,8 @@
     });
 
     $("#btnEliminar").click(function(){
-      var objEvento = recolectarDatosGUI('POST');
-      EnviarInformacion('', objEvento);
+      var objEvento = recolectarDatosGUI('DELETE');
+      EnviarInformacion('/'+$('#eventoId').val(), objEvento);
     });
     
     function recolectarDatosGUI(method){
@@ -145,6 +147,7 @@
             <br>
             <p>Descripción:</p> 
             <textarea name="txtDescripcion" id="txtDescripcion" cols="30" rows="10"></textarea>
+            <input type="hidden" id="eventoId" name="eventoId">
         </div>
         <div class="modal-footer">
             <button class="btn btn-success" id="btnAgregar">Agregar</button>
