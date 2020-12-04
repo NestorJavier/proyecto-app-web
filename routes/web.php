@@ -18,6 +18,6 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-Route::resource('evento', 'EventoController'); //En las rutas
+Route::resource('evento', 'EventoController')->middleware('auth'); //En las rutas
 
 Route::get('/home', 'HomeController@index')->name('home');
