@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('landing');
-});
+})->middleware('guest');
 
 Auth::routes();
 Route::resource('evento', 'EventoController')->middleware('auth'); //En las rutas

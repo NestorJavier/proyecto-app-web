@@ -1,3 +1,9 @@
+body {
+    margin: 0;
+    padding: 0;
+    font-size: 1rem;
+}
+
 .titulo-encabezado{
     color: #5067c5;
     width: 100vh;
