@@ -14,7 +14,8 @@ class CareerController extends Controller
      */
     public function index()
     {
-        //
+        $carreras = Career::all();
+        return view('career')->with(compact('carreras'));
     }
 
     /**
