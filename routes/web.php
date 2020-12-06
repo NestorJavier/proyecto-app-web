@@ -21,6 +21,8 @@ Auth::routes();
 
 Route::resource('evento', 'EventoController')->middleware('auth'); //En las rutas
 
-Route::resource('Career', 'CareerController')->middleware('auth'); //En las rutas
+Route::resource('career', 'CareerController')->middleware('auth'); //En las rutas
+
+Route::resource('subject', 'SubjectController')->middleware('auth'); //En las rutas
 
 Route::get('/home', 'HomeController@index')->name('home');
