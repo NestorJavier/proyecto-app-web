@@ -15,11 +15,12 @@ class CreateEventos extends Migration
     {
         Schema::create('eventos', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('id_usuario')->nullable();
+            $table->bigInteger('user_id')->unsigned();
             $table->string('title', 255);
             $table->text('description');
             $table->dateTime('start');
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

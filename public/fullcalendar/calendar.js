@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function() {
             right: 'dayGridMonth,timeGridWeek,timeGridDay'
         },
 
-        initialDate: '2020-09-12',
+        initialDate: new Date(),
         navLinks: true, // can click day/week names to navigate views
         selectable: true,
         selectMirror: true,

@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->integer('tipo_usuario');
+            $table->integer('creditos_acumulados');
             $table->bigInteger('id_carrera')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

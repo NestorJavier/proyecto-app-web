@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Evento;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class EventoController extends Controller
 {
@@ -42,7 +44,7 @@ class EventoController extends Controller
         $evento->title = $request->titulo;
         $evento->description = $request->descripcion;
         $evento->start = $request->fecha;
-
+        $evento->user_id = Auth::user()->id;
         $evento->save();
         print_r($evento);
     }
@@ -55,8 +57,10 @@ class EventoController extends Controller
      */
     public function show()
     {
-        $data = Evento::all();
-        return response()->json($data);
+        //$data = User::with(['eventos'])->get();
+        //$id = Auth::user()->id;
+        $user = User::find(Auth::user()->id);
+        return $user->eventos;
     }
 
     /**

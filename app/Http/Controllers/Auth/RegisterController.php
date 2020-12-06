@@ -69,7 +69,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'tipo_usuario' => 1,
-            'id_carrera' => 3,
+            'id_carrera' => 0,
+            'creditos_acumulados' => 0,
         ]);
     }
 }
