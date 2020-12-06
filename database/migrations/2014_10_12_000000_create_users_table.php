@@ -19,11 +19,13 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->integer('tipo_usuario');
             $table->integer('creditos_acumulados');
-            $table->bigInteger('id_carrera')->nullable();
+            $table->bigInteger('career_id')->unsigned();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
+
+            $table->foreign('career_id')->references('id')->on('careers')->onDelete('cascade')->onUpdate('cascade');
         });
     }
 

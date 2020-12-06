@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Evento;
+use App\Career;
 
 class User extends Authenticatable
 {
@@ -17,7 +18,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'tipo_usuario', 'id_carrera', 'creditos_acumulados'
+        'name', 'email', 'password', 'tipo_usuario', 'career_id', 'creditos_acumulados'
     ];
 
     /**
@@ -38,13 +39,18 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-        /**
+    /**
      * Retrives all the events of a user
      */
 
     public function eventos()
     {
         return $this->hasMany(Evento::class);
+    }
+
+    public function career()
+    {
+        return $this->belongsTo(Career::class);
     }
 
 }
