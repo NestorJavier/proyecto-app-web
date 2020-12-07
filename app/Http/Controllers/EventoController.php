@@ -55,8 +55,9 @@ class EventoController extends Controller
      * @param  \App\Evento  $evento
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show($id)
     {
+        dd($id);
         //$data = User::with(['eventos'])->get();
         //$id = Auth::user()->id;
         $user = User::find(Auth::user()->id);

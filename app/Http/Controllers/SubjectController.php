@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Subject;
+use App\Career;
 use Illuminate\Http\Request;
 
 class SubjectController extends Controller
@@ -44,9 +45,10 @@ class SubjectController extends Controller
      * @param  \App\Subject  $subject
      * @return \Illuminate\Http\Response
      */
-    public function show(Subject $subject)
+    public function show($id)
     {
-        //
+        $career = Career::find($id);
+        return $career->subjects;
     }
 
     /**

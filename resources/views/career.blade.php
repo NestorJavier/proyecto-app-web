@@ -5,12 +5,15 @@
     <div class="container" style="margin-top:5vh;">
         <div class="row">
             <div class="col-8 col-md-4">
-                <h6>¿Que Carrera estudias?</h6>        
-                <select class="custom-select" id="career">
+                <h6>¿Que Carrera estudias?</h6>
+                
+                <select class="custom-select" id="career" onchange="getComboA(this)">
                     @if(!is_null($carreras))
                         @foreach($carreras as $carrera)
                             @if($carrera->id != 16)
                                 <option value="{{$carrera->id}}">{{$carrera->name}}</option>
+                            @else
+                                <option selected value="{{$carrera->id}}">Elije...</option>
                             @endif
                         @endforeach
                     @endif
@@ -20,83 +23,73 @@
 
     <div class="container" style="margin-top:5vh;">
         <table class="table table-bordered table-hover" align="center">
-            <tbody>
+            <thead>
                 <tr>
                     <td colspan="6" class="bg-primary"><b style="color:white;">Materias</b></td>
                 </tr>
                 <tr>
-                    <td width="5%" class="table-warning"><b>Clave</b></td>
-                    <td width="5%" class="table-warning"><b>Créditos</b></td>
-                    <td width="65%" class="table-warning"><b>Nombre de la Materia</b></td>
-                    <td width="5%" class="table-warning"><b>CACEI</b></td>
-                    <td width="10%" class="table-warning"><b>Hrs. Teoría</b></td>
-                    <td width="10%" class="table-warning"><b>Hrs. Laboratorio</b></td>
+                    <td width="10%" class="table-warning"><b>Créditos</b></td>
+                    <td width="80%" class="table-warning"><b>Nombre de la Materia</b></td>
+                    <td width="10%" class="table-warning"><b>Aprobada</b></td>
                 </tr>
-            
-                <tr class="table-success">
-                    <td>0071</td>
-                    <td>8</td>
-                    <td><a href="plan/75/programas/0071.pdf" target="_blank">QUIMICA A</a></td>
-                    <td>CB</td>
-                    <td>3</td>
-                    <td>2</td>
-                </tr>
+            </thead>
+            <tbody id="content-table">
                 
-                <tr class="table-primary">
-                    <td>2151</td>
-                    <td>8</td>
-                    <td><a href="plan/75/programas/2151.pdf" target="_blank">MATEMATICAS DISCRETAS I</a></td>
-                    <td>CB</td>
-                    <td>4</td>
-                    <td>0</td>
-                </tr>
-                
-                <tr class="table-success">
-                    <td>2229</td>
-                    <td>8</td>
-                    <td><a href="plan/75/programas/2229.pdf" target="_blank">PENSAMIENTO ALGORITMICO</a></td>
-                    <td>CI</td>
-                    <td>4</td>
-                    <td>0</td>
-                </tr>
-                
-                <tr class="table-primary">
-                    <td>2150</td>
-                    <td>8</td>
-                    <td><a href="plan/75/programas/2150.pdf" target="_blank">TEMAS SELECTOS DE MATEMATICAS</a></td>
-                    <td>CB</td>
-                    <td>4</td>
-                    <td>0</td>
-                </tr>
-                
-                <tr class="table-success">
-                    <td>2805</td>
-                    <td>8</td>
-                    <td><a href="plan/75/programas/2805.pdf" target="_blank">HERRAMIENTAS DE SOFTWARE</a></td>
-                    <td>IA</td>
-                    <td>4</td>
-                    <td>0</td>
-                </tr>
-                
-                <tr class="table-primary">
-                    <td>2002</td>
-                    <td>2</td>
-                    <td><a href="plan/75/programas/2002.pdf" target="_blank">SEMINARIO DE ORIENTACION EN COMPUTACION</a></td>
-                    <td>CC</td>
-                    <td>2</td>
-                    <td>0</td>
-                </tr>
-                
-                <tr class="table-success">
-                    <td>1005</td>
-                    <td>4</td>
-                    <td><a href="plan/75/programas/1005.pdf" target="_blank">METODOLOGIA DE LA INVESTIGACION</a></td>
-                    <td>CS</td>
-                    <td>0</td>
-                    <td>4</td>
-                </tr>
             </tbody>
         </table>
     </div>
 </div>
+
+<script>
+
+const tabla = document.querySelector('#content-table');
+
+function getSubjects(url) {
+    return fetch(url)
+    .then(function(response) {
+      return response.json();
+    })
+}
+
+async function getComboA(selected) {
+    console.log(selected.value);
+    
+    url = "{{ url('/subject') }}" + "/" + selected.value;
+    let materias = await getSubjects(url);
+    tabla.innerHTML = '';
+    materias.forEach(materia => {
+        if (materia.id%2 == 0) {
+            tabla.innerHTML += `
+                <tr class="table-light">
+                    <td>${materia.creditos}</td>
+                    <td>${materia.name}</td>
+                    <td>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+        else{
+            tabla.innerHTML += `
+                <tr class="table-info">
+                    <td>${materia.creditos}</td>
+                    <td>${materia.name}</td>
+                    <td>
+                        <div class="input-group-prepend">
+                            <div class="input-group-text">
+                                <input type="checkbox" aria-label="Checkbox for following text input">
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            `;
+        }
+        
+    });
+}
+</script>
 @endsection

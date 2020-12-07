@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\User;
+use App\Subject;
 
 class Career extends Model
 {
@@ -14,5 +15,10 @@ class Career extends Model
     public function users()
     {
         return $this->hasMany(User::class);
+    }
+
+    public function subjects()
+    {
+        return $this->hasMany(Subject::class);
     }
 }
