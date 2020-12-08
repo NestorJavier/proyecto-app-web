@@ -19,10 +19,14 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::resource('usuario', 'UserController')->middleware('auth'); //En las rutas
+
 Route::resource('evento', 'EventoController')->middleware('auth'); //En las rutas
 
 Route::resource('career', 'CareerController')->middleware('auth'); //En las rutas
 
 Route::resource('subject', 'SubjectController')->middleware('auth'); //En las rutas
+
+Route::resource('course', 'CourseController')->middleware('auth'); //En las rutas
 
 Route::get('/home', 'HomeController@index')->name('home');

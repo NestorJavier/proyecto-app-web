@@ -46,7 +46,6 @@ class EventoController extends Controller
         $evento->start = $request->fecha;
         $evento->user_id = Auth::user()->id;
         $evento->save();
-        print_r($evento);
     }
 
     /**
@@ -57,9 +56,6 @@ class EventoController extends Controller
      */
     public function show($id)
     {
-        dd($id);
-        //$data = User::with(['eventos'])->get();
-        //$id = Auth::user()->id;
         $user = User::find(Auth::user()->id);
         return $user->eventos;
     }

@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Evento;
 use App\Career;
+use App\Course;
 
 class User extends Authenticatable
 {
@@ -48,6 +49,11 @@ class User extends Authenticatable
         return $this->hasMany(Evento::class);
     }
 
+    public function courses()
+    {
+        return $this->hasMany(Course::class);
+    }
+    
     public function career()
     {
         return $this->belongsTo(Career::class);
