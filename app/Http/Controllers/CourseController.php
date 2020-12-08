@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Course;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CourseController extends Controller
 {
@@ -35,7 +36,22 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //dd($request[1]["Aprobada"]);
+        $i = 0;
+        do {
+            if($request[$i]["Aprobada"] == "true")
+            {
+                $curse = new Course;
+                $curse->subject_id = $request[$i]["id"];
+                $curse->cursando = false;
+                $curse->aprobada = true;
+                $curse->user_id = Auth::user()->id;
+                $curse->save();
+            }
+            $i++;
+        } while ($request[$i] != null);
+
+        //return $request;
     }
 
     /**

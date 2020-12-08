@@ -37,9 +37,6 @@ class EventoController extends Controller
      */
     public function store(Request $request)
     {
-        /*$datosEvento = request()->except(['_token', '_method']);
-        //Evento::insert($datosEvento);*/
-        
         $evento = new Evento;
         $evento->title = $request->titulo;
         $evento->description = $request->descripcion;

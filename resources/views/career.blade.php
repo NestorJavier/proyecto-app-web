@@ -112,8 +112,38 @@ $( document ).ready(function() {
 });
 
 function guardaMaterias() {
-    var table = $('#subjects-table').tableToJSON(); // Convert the table into a javascript object
-    console.log(JSON.stringify(table));
+    var table = $('#subjects-table').tableToJSON({
+        ignoreColumns: [1, 2]
+    }); // Convert the table into a javascript object
+    infoArray = JSON.stringify(table);
+    
+    /*table.forEach(element => {
+        console.log(element)
+    });*/
+
+    let data = { materiasInfo: infoArray };
+    let url = "{{ url('course') }}";
+    console.log(url);
+    
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            "Accept": "application/json, text-plain, *//*",
+            "X-Requested-With": "XMLHttpRequest",
+            "X-CSRF-TOKEN": "{{ csrf_token() }}"
+        },
+        body: JSON.stringify(table),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        console.log("Yeiiiiiiiii");
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+    });
+    
 }
 
 function guardaCarrera(obj){
