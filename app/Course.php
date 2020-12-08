@@ -18,7 +18,7 @@ class Course extends Model
                             'aprobada',
                             'user_id'   ];
 
-    public function subjects()
+    public function subject()
     {
         return $this->hasOne(Subject::class);
     }
