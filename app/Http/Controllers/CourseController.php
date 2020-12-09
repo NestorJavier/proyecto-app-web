@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Course;
+use App\Career;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -36,7 +37,8 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //dd($request[1]["Aprobada"]);
+        //TODO
+        dd($request[0]["Parciales"]);
         $i = 0;
         do {
             if($request[$i]["Aprobada"] == "true")
@@ -51,7 +53,7 @@ class CourseController extends Controller
             $i++;
         } while ($request[$i] != null);
 
-        //return $request;
+        return redirect('/subject');
     }
 
     /**

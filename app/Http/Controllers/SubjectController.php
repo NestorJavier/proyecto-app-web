@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Subject;
 use App\Career;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
 {
@@ -15,7 +16,27 @@ class SubjectController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+        $career = Career::find($user->career_id);
+        $materias = $career->subjects;
+        $materias_aprobadas = $user->courses;
+
+        $array_id_aprobadas = array();
+        $array_materias_faltantes = array();
+
+        foreach ($materias_aprobadas as $key => $value) {
+            array_push($array_id_aprobadas, $value->subject_id);
+        }
+
+        ////////
+        foreach ($materias as $key => $value) {
+            if (!in_array($value->id, $array_id_aprobadas))
+            {
+                array_push($array_materias_faltantes, $value);
+            }
+        }
+        ///////
+        return view('registerCurrentSubjects')->with(compact('array_materias_faltantes'));
     }
 
     /**
