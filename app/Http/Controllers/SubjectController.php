@@ -25,7 +25,10 @@ class SubjectController extends Controller
         $array_materias_faltantes = array();
 
         foreach ($materias_aprobadas as $key => $value) {
-            array_push($array_id_aprobadas, $value->subject_id);
+            if($value->cursando == 0)
+            {
+                array_push($array_id_aprobadas, $value->subject_id);
+            }
         }
 
         ////////

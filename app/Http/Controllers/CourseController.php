@@ -16,7 +16,30 @@ class CourseController extends Controller
      */
     public function index()
     {
-        //
+
+        $user = Auth::user();
+        $cursos = $user->courses;
+        $array_cursos_activos = array();
+        $curso = array();
+        //dd(gettype($cursos[0]));
+        foreach ($cursos as $key => $value) {
+            if($value->cursando == 1)
+            {
+                $curso['id'] = $value->id;
+                $curso['subject_id'] = $value->subject_id;
+                $curso['hora_inicio'] = $value->hora_inicio;
+                $curso['hora_fin'] = $value->hora_fin;
+                $curso['num_parciales'] = $value->num_parciales;
+                $curso['nombre_profesor'] = $value->nombre_profesor;
+                $curso['nombre_materia'] = $value->subject->name;
+                $curso['creditos'] = $value->subject->creditos;
+                
+                array_push($array_cursos_activos, $curso);
+            }
+        }
+
+        //dd($array_cursos_activos);
+        return view('currentCourses')->with(compact('array_cursos_activos'));
     }
 
     /**
@@ -37,7 +60,6 @@ class CourseController extends Controller
      */
     public function store(Request $request)
     {
-        //TODO
         try {
             $i = 0;
             do {

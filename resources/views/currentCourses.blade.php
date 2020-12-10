@@ -2,17 +2,14 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Alta materias en curso</h1>
+<h1>Materias en curso</h1>
     <div class="container" style="margin-top:5vh;">
         <div class="row">
             <div class="col-8 col-md-3">
                 <h6>Elije la Materia que vas a inscribir</h6>
                 <select class="custom-select" id="selectCareerControl">
-                    @if(!is_null($array_materias_faltantes))
-                        @foreach($array_materias_faltantes as $materia)
-                                <option value="{{$materia->id}}">{{$materia->name}}</option>
-                        @endforeach
-                    @endif
+                    
+                                <option value="1">relleno</option>
                 </select>   
             </div>
 
@@ -50,10 +47,6 @@
             </div>
             <div class="col-8 col-md-4" style="margin">
                 <h6 style="visibility: hidden;">con</h6>
-                <button class="btn btn-primary" onclick="agregaInfoMateria()">Agrega Materia</button>
-            </div>
-            <div class="col-8 col-md-4" style="margin">
-                <h6 style="visibility: hidden;">con</h6>
                 <button class="btn btn-primary" onclick="guardaCursos()">Confirma Materias</button>
             </div>
         </div>
@@ -63,17 +56,47 @@
         <table class="table table-bordered table-hover" align="center" id="subjects-table">
             <thead>
                 <tr>
-                    <td width="5%" class="table-warning"><b>id</b></td>
-                    <td width="5%" class="table-warning"><b>Créditos</b></td>
+                    <td width="10%" class="table-warning">
+
+                    </td>
                     <td width="25%" class="table-warning"><b>Nombre</b></td>
-                    <td width="5%" class="table-warning"><b>Inicio</b></td>
-                    <td width="5%" class="table-warning"><b>Fin</b></td>
+                    <td width="20%" class="table-warning"><b>Profesor</b></td>
+                    <td width="10%" class="table-warning"><b>Créditos</b></td>
                     <td width="10%" class="table-warning"><b>Parciales</b></td>
-                    <td width="45%" class="table-warning"><b>Profesor<Profesor</b></td>
+                    <td width="10%" class="table-warning"><b>Inicio</b></td>
+                    <td width="10%" class="table-warning"><b>Fin</b></td>
                 </tr>
             </thead>
             <tbody id="content-table">
-                
+                @if(!is_null($array_cursos_activos))
+                        @foreach($array_cursos_activos as $curso)
+                            @if($loop->index % 2 == 0)
+                            <tr class="table-info">
+                                <td>
+                                    <button class="btn btn-primary" onclick="imprime({{$curso['id']}})">Info</button>
+                                </td>
+                                <td>{{$curso['nombre_materia']}}</td>
+                                <td>{{$curso['nombre_profesor']}}</td>
+                                <td>{{$curso['creditos']}}</td>
+                                <td>{{$curso['num_parciales']}}</td>
+                                <td>{{$curso['hora_inicio']}}:00</td>
+                                <td>{{$curso['hora_fin']}}:00</td>
+                            </tr>
+                            @else
+                            <tr class="table-light">
+                                <td>
+                                    <button class="btn btn-primary" onclick="imprime({{$curso['id']}})">Info</button>
+                                </td>
+                                <td>{{$curso['nombre_materia']}}</td>
+                                <td>{{$curso['nombre_profesor']}}</td>
+                                <td>{{$curso['creditos']}}</td>
+                                <td>{{$curso['num_parciales']}}</td>
+                                <td>{{$curso['hora_inicio']}}:00</td>
+                                <td>{{$curso['hora_fin']}}:00</td>
+                            </tr>
+                            @endif
+                        @endforeach
+                @endif
             </tbody>
         </table>
     </div>
@@ -82,11 +105,14 @@
 <script>
 
 const tabla = document.querySelector('#content-table');
-
-let materias = {!! json_encode($array_materias_faltantes) !!};
+let materias = {!! json_encode($array_cursos_activos) !!};
 let numMaterias = 0;
 let idMateriasAgregadas = [];
+let home_url = "{{ url('home') }}";
 
+function imprime(params) {
+    console.log(params);
+}
 
 async function agregaInfoMateria() {
     //tabla.innerHTML = '';
@@ -177,7 +203,7 @@ function guardaCursos() {
     .then(data => {
         console.log('Success:', data);
         console.log("Yeiiiiiiiii");
-        window.location.href = url;
+        window.location.href = home_url;
     })
     .catch((error) => {
         console.log('Error:', error);
