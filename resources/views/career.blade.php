@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-8 col-md-3">
                 <h6>¿Que Carrera estudias?</h6>
-                <select class="custom-select" id="selectCareerControl" onchange="getComboA(this)">
+                <select class="custom-select" id="selectCareerControl" onchange="seleccionaCarrera(this)">
                     @if(!is_null($carreras))
                         @foreach($carreras as $carrera)
                             @if($carrera->id != 16)
@@ -53,11 +53,11 @@ let carrera_seleccionada_id = 16; //Es el valor por default
 function getSubjects(url) {
     return fetch(url)
     .then(function(response) {
-      return response.json();
+        return response.json();
     })
 }
 
-async function getComboA(selected) {
+async function seleccionaCarrera(selected) {
     carrera_seleccionada_id = selected.value;
     
     url = "{{ url('/subject') }}" + "/" + selected.value;

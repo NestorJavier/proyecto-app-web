@@ -10,7 +10,7 @@
             <div class="col-3 align-self-end" style="height: 50vh;">
                 <div class="d-flex align-items-start flex-column" >
                     <div class="mb-auto p-2">
-                        <a href="{{ route('register') }}" role="button" class="btn btn-success btn-lg btn-block">
+                        <a href="{{ route('course.index') }}" role="button" class="btn btn-success btn-lg btn-block">
                             Materias
                         </a>
                     </div>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Exam;
+use App\Course;
 use Illuminate\Http\Request;
 
 class ExamController extends Controller
@@ -44,9 +45,11 @@ class ExamController extends Controller
      * @param  \App\Exam  $exam
      * @return \Illuminate\Http\Response
      */
-    public function show(Exam $exam)
+    public function show($idCurso)
     {
-        //
+        $course = Course::find($idCurso);
+        $exams = $course->exams;
+        return view('exams')->with(compact('exams'));
     }
 
     /**
