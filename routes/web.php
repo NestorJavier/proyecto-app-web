@@ -29,4 +29,6 @@ Route::resource('subject', 'SubjectController')->middleware('auth'); //En las ru
 
 Route::resource('course', 'CourseController')->middleware('auth'); //En las rutas
 
+Route::resource('exam', 'ExamController')->middleware('auth'); //En las rutas
+
 Route::get('/home', 'HomeController@index')->name('home');

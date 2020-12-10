@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\Subject;
+use App\Exam;
 
 
 class Course extends Model
@@ -22,4 +23,10 @@ class Course extends Model
     {
         return $this->belongsTo(Subject::class);
     }
+
+    public function exams()
+    {
+        return $this->hasMany(Exam::class);
+    }
+
 }
