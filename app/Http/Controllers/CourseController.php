@@ -38,22 +38,42 @@ class CourseController extends Controller
     public function store(Request $request)
     {
         //TODO
-        dd($request[0]["Parciales"]);
-        $i = 0;
-        do {
-            if($request[$i]["Aprobada"] == "true")
-            {
+        try {
+            $i = 0;
+            do {
                 $curse = new Course;
                 $curse->subject_id = $request[$i]["id"];
-                $curse->cursando = false;
-                $curse->aprobada = true;
+                $curse->hora_inicio = $request[$i]["Inicio"];
+                $curse->hora_fin = $request[$i]["Fin"];
+                $curse->num_parciales = $request[$i]["Parciales"];
+                $curse->nombre_profesor = $request[$i]["Profesor"];
+                $curse->cursando = true;
+                $curse->aprobada = false;
                 $curse->user_id = Auth::user()->id;
                 $curse->save();
-            }
-            $i++;
-        } while ($request[$i] != null);
+                $i++;
+            } while ($request[$i] != null);
+            return response()->json("Success");
+        } catch (\Throwable $th) {
+            $i = 0;
+            do {
+                if($request[$i]["Aprobada"] == "true")
+                {
+                    $curse = new Course;
+                    $curse->subject_id = $request[$i]["id"];
+                    $curse->cursando = false;
+                    $curse->aprobada = true;
+                    $curse->user_id = Auth::user()->id;
+                    $curse->save();
+                }
+                $i++;
+            } while ($request[$i] != null);
 
-        return redirect('/subject');
+            return response()->json("Success");
+        }
+        
+
+        
     }
 
     /**

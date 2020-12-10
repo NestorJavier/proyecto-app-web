@@ -86,6 +86,9 @@ const tabla = document.querySelector('#content-table');
 let materias = {!! json_encode($array_materias_faltantes) !!};
 let numMaterias = 0;
 let idMateriasAgregadas = [];
+let home_url = "{{ url('home') }}";
+
+
 async function agregaInfoMateria() {
     //tabla.innerHTML = '';
 
@@ -175,6 +178,7 @@ function guardaCursos() {
     .then(data => {
         console.log('Success:', data);
         console.log("Yeiiiiiiiii");
+        window.location.href = home_url;
     })
     .catch((error) => {
         console.log('Error:', error);

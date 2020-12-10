@@ -123,6 +123,7 @@ function guardaMaterias() {
 
     let data = { materiasInfo: infoArray };
     let url = "{{ url('course') }}";
+    let subject_url = "{{ url('subject') }}";
     console.log(url);
     
     fetch(url, {
@@ -139,6 +140,8 @@ function guardaMaterias() {
     .then(data => {
         console.log('Success:', data);
         console.log("Yeiiiiiiiii");
+        console.log(subject_url);
+        window.location.href = subject_url;
     })
     .catch((error) => {
         console.error('Error:', error);
