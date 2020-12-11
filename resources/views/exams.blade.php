@@ -20,21 +20,21 @@
                 </tr>
             </thead>
             <tbody id="content-table">
-                @if(!is_null($exams))
-                        @foreach($exams as $exam)
+                @if(!is_null($info_exams))
+                        @foreach($info_exams as $exam)
                             @if($loop->index % 2 == 0)
                             <tr class="table-info">
-                                <td>{{$exam->num_parcial}}</td>
-                                <td>{{$exam->calificacion}}</td>
-                                <td>promedio</td>
-                                <td>restantes</td>
+                                <td>{{$exam['num_parcial']}}</td>
+                                <td>{{$exam['calificacion']}}</td>
+                                <td>{{$exam['promedio']}}</td>
+                                <td>{{$exam['restante']}}</td>
                             </tr>
                             @else
                             <tr class="table-light">
-                                <td>{{$exam->num_parcial}}</td>
-                                <td>{{$exam->calificacion}}</td>
-                                <td>promedio</td>
-                                <td>restantes</td>
+                                <td>{{$exam['num_parcial']}}</td>
+                                <td>{{$exam['calificacion']}}</td>
+                                <td>{{$exam['promedio']}}</td>
+                                <td>{{$exam['restante']}}</td>
                             </tr>
                             @endif
                         @endforeach

@@ -58,7 +58,27 @@ class ExamController extends Controller
     {
         $course = Course::find($idCurso);
         $exams = $course->exams;
-        return view('exams')->with(compact('exams', 'idCurso'));
+
+        $info_exams = array();
+        $examen = array();
+        $i = 0;
+        $calificacion_acum = 0;
+        foreach ($exams as $key => $exam) {
+
+            $examen['num_parcial'] = $exam->num_parcial;
+            $examen['calificacion'] = $exam->calificacion;
+            $calificacion_acum += $exam->calificacion;
+            $i++;
+
+            $examen['promedio'] = $calificacion_acum/$i;
+            $examen['restante'] = ($course->num_parciales*6) - $calificacion_acum;
+            array_push($info_exams, $examen);
+        }
+
+        //dd($info_exams);
+
+        /////////////////////////////
+        return view('exams')->with(compact('info_exams', 'idCurso'));
     }
 
     /**
