@@ -2,9 +2,12 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Alta materias en curso</h1>
     <div class="container" style="margin-top:5vh;">
-        <div class="row">
+    <div class="col-8 col-md-2" style="margin">
+                <h6 style="visibility: hidden;">con</h6>
+                <a class="btn btn-primary" href="/home" role="button">Regresa</a>
+        </div>
+        <div class="row" style="margin-top:5vh;">
             <div class="col-8 col-md-3">
                 <h6>Elije la Materia que vas a inscribir</h6>
                 <select class="custom-select" id="selectCareerControl">

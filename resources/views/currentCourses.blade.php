@@ -2,9 +2,12 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Materias en curso</h1>
     <div class="container" style="margin-top:5vh;">
-        <table class="table table-bordered table-hover" align="center" id="subjects-table">
+        <div class="col-8 col-md-2" style="margin">
+                <h6 style="visibility: hidden;">con</h6>
+                <a class="btn btn-primary" href="/home" role="button">Regresa</a>
+        </div>
+        <table class="table table-bordered table-hover" align="center" id="subjects-table" style="margin-top:5vh;">
             <thead>
                 <tr>
                     <td width="10%" class="table-warning"></td>

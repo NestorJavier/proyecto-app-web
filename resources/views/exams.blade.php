@@ -5,9 +5,13 @@
 <h1>Examenes</h1>
     <div class="container" style="margin-top:5vh;">
         <div class="row" style="margin-top:1rem;">
-            <div class="col-8 col-md-4" style="margin">
+            <div class="col-8 col-md-2" style="margin">
                 <h6 style="visibility: hidden;">con</h6>
-                <a class="btn btn-primary" href="/exam/nuevo/{{$idCurso}}"') }} role="button">Agrega Parcial</a>
+                <a class="btn btn-primary" href="/exam/nuevo/{{$idCurso}}" role="button">Agrega Parcial</a>
+            </div>
+            <div class="col-8 col-md-2" style="margin">
+                <h6 style="visibility: hidden;">con</h6>
+                <a class="btn btn-primary" href="/course" role="button">Regresa</a>
             </div>
         </div>
         <table class="table table-bordered table-hover" align="center" id="subjects-table" style="margin-top:5vh;">

@@ -93,6 +93,15 @@
             </div>
         </nav>
     </div>
+
+    <div class="container">
+    
+
+    <div class="col-8 col-md-2" style="margin">
+                <h6 style="visibility: hidden;">con</h6>
+                <a class="btn btn-primary" href="/home" role="button">Regresa</a>
+    </div>
+    </div>
     <!-- Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog">
