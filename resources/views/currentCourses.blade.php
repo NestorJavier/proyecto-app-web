@@ -68,15 +68,4 @@
         </table>
     </div>
 </div>
-
-<script>
-
-let materias = {!! json_encode($array_cursos_activos) !!};
-let exams = "{{ url('exam') }}";
-
-function infoCurso(params) {
-    window.location.href = exams+"/"+params;
-}
-
-</script>
 @endsection
