@@ -72,6 +72,7 @@ class CourseController extends Controller
                 $curse->cursando = true;
                 $curse->aprobada = false;
                 $curse->user_id = Auth::user()->id;
+                //dd($curse);
                 $curse->save();
                 $i++;
             } while ($request[$i] != null);

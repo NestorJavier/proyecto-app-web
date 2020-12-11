@@ -2,7 +2,6 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Nuevo examen</h1>
     <div class="container" style="margin-top:5vh;">
         <div class="row" style="margin-top:1rem;">
             <form class="col-8 col-md-12" action="/exam" method="POST">

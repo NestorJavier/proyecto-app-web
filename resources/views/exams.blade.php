@@ -2,7 +2,6 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Examenes</h1>
     <div class="container" style="margin-top:5vh;">
         <div class="row" style="margin-top:1rem;">
             <div class="col-8 col-md-2" style="margin">

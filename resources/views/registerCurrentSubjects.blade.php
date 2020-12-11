@@ -99,7 +99,7 @@ async function agregaInfoMateria() {
     nombreProfesor = document.querySelector('#nombreProf').value;
     
 
-    if(idMateriasAgregadas.indexOf(Number(materia_seleccionada_id)) === -1 && hInicioSeleccionada < hFinSeleccionada){
+    if(idMateriasAgregadas.indexOf(Number(materia_seleccionada_id)) === -1){
         materias.forEach(materia => {
             if(materia.id == materia_seleccionada_id){
                 if (!(numMaterias%2 == 0)) {
@@ -133,9 +133,6 @@ async function agregaInfoMateria() {
         });
         numMaterias++;
     } else {
-        if(hInicioSeleccionada >= hFinSeleccionada)
-            alert("La hora de inicio tiene que ser menor que la final");
-        else
             alert("Esa materia ya esta agregada");
     
     }
@@ -154,9 +151,10 @@ function guardaCursos() {
     
     let data = { materiasInfo: infoArray };
     let url = "{{ url('home') }}";
+    let url_insert_course = "{{ url('course') }}";
     console.log(url);
     
-    fetch(url, {
+    fetch(url_insert_course, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
