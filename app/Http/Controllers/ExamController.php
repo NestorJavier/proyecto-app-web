@@ -23,9 +23,12 @@ class ExamController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($idCurso)
     {
-        //
+        $course = Course::find($idCurso);
+        $exams = $course->exams;
+        //dd($course);
+        return view('newExam')->with(compact('exams', 'course'));
     }
 
     /**
@@ -36,7 +39,13 @@ class ExamController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $exam = new Exam;
+        $exam->course_id = $request->idcourse;
+        $exam->num_parcial = $request->numparcial;
+        $exam->calificacion = $request->calificacion;
+        $exam->save();
+
+        return redirect('/exam/'.$request->idcourse);
     }
 
     /**
@@ -49,7 +58,7 @@ class ExamController extends Controller
     {
         $course = Course::find($idCurso);
         $exams = $course->exams;
-        return view('exams')->with(compact('exams'));
+        return view('exams')->with(compact('exams', 'idCurso'));
     }
 
     /**

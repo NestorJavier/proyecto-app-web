@@ -31,4 +31,7 @@ Route::resource('course', 'CourseController')->middleware('auth'); //En las ruta
 
 Route::resource('exam', 'ExamController')->middleware('auth'); //En las rutas
 
+Route::post('/exam', 'ExamController@store')->middleware('auth'); //En las rutas
+Route::get('/exam/nuevo/{idCurso}', 'ExamController@create')->middleware('auth'); //En las rutas
+
 Route::get('/home', 'HomeController@index')->name('home');

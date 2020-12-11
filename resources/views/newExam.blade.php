@@ -2,45 +2,23 @@
 @section('title', 'home')
 @section('content')
 <div>
-<h1>Examenes</h1>
+<h1>Nuevo examen</h1>
     <div class="container" style="margin-top:5vh;">
         <div class="row" style="margin-top:1rem;">
-            <div class="col-8 col-md-4" style="margin">
-                <h6 style="visibility: hidden;">con</h6>
-                <a class="btn btn-primary" href="/exam/nuevo/{{$idCurso}}"') }} role="button">Agrega Parcial</a>
-            </div>
+            <form class="col-8 col-md-12" action="/exam" method="POST">
+                @csrf
+                <label class="mr-sm-2" for="inlineFormCustomSelect">Numero de Parcial</label>
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="numparcial">
+                    @foreach(range(1, $course->num_parciales) as $h)
+                        <option value="{{$h}}"  required>{{$h}}</option>
+                    @endforeach
+                </select>
+                <label class="mr-sm-2" for="cal" style="margin-top:5vh;">Calificación</label>
+                <input type="text" class="form-control" id="cal" aria-describedby="basic-addon3" name="calificacion">
+                <input type="hidden" name="idcourse" value="{{$course->id}}">
+                <button type="submit"  class="btn btn-primary" style="margin-top:5vh;" required>Guardar</button>
+            </form>
         </div>
-        <table class="table table-bordered table-hover" align="center" id="subjects-table" style="margin-top:5vh;">
-            <thead>
-                <tr>
-                    <td width="10%" class="table-warning">#</td>
-                    <td width="25%" class="table-warning"><b>Calificación</b></td>
-                    <td width="20%" class="table-warning"><b>Promedio</b></td>
-                    <td width="20%" class="table-warning"><b>Restantes</b></td>
-                </tr>
-            </thead>
-            <tbody id="content-table">
-                @if(!is_null($exams))
-                        @foreach($exams as $exam)
-                            @if($loop->index % 2 == 0)
-                            <tr class="table-info">
-                                <td>{{$exam->num_parcial}}</td>
-                                <td>{{$exam->calificacion}}</td>
-                                <td>promedio</td>
-                                <td>restantes</td>
-                            </tr>
-                            @else
-                            <tr class="table-light">
-                                <td>{{$exam->num_parcial}}</td>
-                                <td>{{$exam->calificacion}}</td>
-                                <td>promedio</td>
-                                <td>restantes</td>
-                            </tr>
-                            @endif
-                        @endforeach
-                @endif
-            </tbody>
-        </table>
     </div>
 </div>
 

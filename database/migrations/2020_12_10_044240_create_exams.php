@@ -17,7 +17,7 @@ class CreateExams extends Migration
             $table->id();
             $table->bigInteger('course_id')->unsigned();
             $table->integer('num_parcial');
-            $table->integer('calificacion');
+            $table->float('calificacion', 8, 2);
             $table->timestamps();
 
             $table->foreign('course_id')->references('id')->on('courses')->onDelete('cascade')->onUpdate('cascade');

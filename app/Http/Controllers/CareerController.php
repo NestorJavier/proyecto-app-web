@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Career;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class CareerController extends Controller
 {
@@ -14,8 +16,14 @@ class CareerController extends Controller
      */
     public function index()
     {
-        $carreras = Career::all();
-        return view('career')->with(compact('carreras'));
+        $user = User::find(Auth::user()->id);
+        if($user->career_id == 16)
+        {
+            $carreras = Career::all();
+            return view('career')->with(compact('carreras'));
+        }
+        else
+            return redirect('/home');
     }
 
     /**

@@ -150,7 +150,7 @@ function guardaCursos() {
     infoArray = JSON.stringify(table);
     
     let data = { materiasInfo: infoArray };
-    let url = "{{ url('course') }}";
+    let url = "{{ url('home') }}";
     console.log(url);
     
     fetch(url, {

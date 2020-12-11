@@ -19,6 +19,11 @@
                             Calendario
                         </a>
                     </div>
+                    <div class="mb-auto p-2">
+                        <a href="{{ route('subject.index') }}" role="button" class="btn btn-success btn-lg btn-block">
+                            alta materias
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

@@ -104,9 +104,28 @@ class CourseController extends Controller
      * @param  \App\Course  $course
      * @return \Illuminate\Http\Response
      */
-    public function show(Course $course)
+    public function show($id)
     {
-        //
+        $course = Course::find($id);
+        $minimo_aprobatorio = $course->num_parciales*6;
+
+        $exams = $course->exams;
+        $calificacion_final = 0;
+        foreach ($exams as $key => $exam) {
+            $calificacion_final += $exam->calificacion;
+        }
+
+        if($calificacion_final > $minimo_aprobatorio)
+        {
+            $course->cursando = false;
+            $course->aprobada = true;
+            $course->save();
+        }
+        else{
+            $course->delete();
+        }
+        
+        return redirect('course');
     }
 
     /**

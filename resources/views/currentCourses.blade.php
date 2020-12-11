@@ -8,12 +8,13 @@
             <thead>
                 <tr>
                     <td width="10%" class="table-warning"></td>
+                    <td width="10%" class="table-warning"></td>
                     <td width="25%" class="table-warning"><b>Nombre</b></td>
                     <td width="20%" class="table-warning"><b>Profesor</b></td>
                     <td width="10%" class="table-warning"><b>Créditos</b></td>
                     <td width="10%" class="table-warning"><b>Parciales</b></td>
-                    <td width="10%" class="table-warning"><b>Inicio</b></td>
-                    <td width="10%" class="table-warning"><b>Fin</b></td>
+                    <td width="5%" class="table-warning"><b>Inicio</b></td>
+                    <td width="5%" class="table-warning"><b>Fin</b></td>
                 </tr>
             </thead>
             <tbody id="content-table">
@@ -21,8 +22,15 @@
                         @foreach($array_cursos_activos as $curso)
                             @if($loop->index % 2 == 0)
                             <tr class="table-info">
-                                <td>
-                                    <button class="btn btn-primary" onclick="infoCurso({{$curso['id']}})">Info</button>
+                                <td>                                
+                                    <a href="{{ url('exam') }}/{{$curso['id']}}" role="button" class="btn btn-primary">
+                                        Info
+                                    </a>
+                                </td>
+                                <td>                                
+                                    <a href="{{ url('course') }}/{{$curso['id']}}" role="button" class="btn btn-primary">
+                                        Finalizar
+                                    </a>
                                 </td>
                                 <td>{{$curso['nombre_materia']}}</td>
                                 <td>{{$curso['nombre_profesor']}}</td>
@@ -33,8 +41,15 @@
                             </tr>
                             @else
                             <tr class="table-light">
-                                <td>
-                                    <button class="btn btn-primary" onclick="infoCurso({{$curso['id']}})">Info</button>
+                                <td>                                
+                                    <a href="{{ url('exam') }}/{{$curso['id']}}" role="button" class="btn btn-primary">
+                                        Info
+                                    </a>
+                                </td>
+                                <td>                                
+                                    <a href="{{ url('course') }}/{{$curso['id']}}" role="button" class="btn btn-primary">
+                                        Finalizar
+                                    </a>
                                 </td>
                                 <td>{{$curso['nombre_materia']}}</td>
                                 <td>{{$curso['nombre_profesor']}}</td>
